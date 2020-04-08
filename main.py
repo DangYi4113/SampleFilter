@@ -49,7 +49,6 @@ time.sleep(3)
 
 print('\n开始尝试：')
 
-#下面这两行是为了不显示warnings
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -59,7 +58,7 @@ import statsmodels.api as sm
 model_dict = {'线性回归':sm.OLS,'Logit':sm.Logit,'Probit':sm.Probit}
 MyReg = model_dict[model_reg]
 if const_bool:
-    X = sm.add_constant(X)  # 回归增加常数项
+    X = sm.add_constant(X)  
 index1 = choice_step3(X,y,model_reg,method_reg,p_alpha_list,t_above_list,t_below_list,alpha,lr,rr,iteration,N)
 
 time.sleep(3)
@@ -76,8 +75,6 @@ if index1:
     result_reg1 = reg1.fit(method=method_reg, disp=False)
     resultsheets_reg1 = result_reg1.summary2()
     print(resultsheets_reg1)
-    
-    #计算xlist0中，变量名字符串的最大值
     str_len_list = [len(s) for s in xlist0]
     str_len_max = max(2*max(str_len_list),15)
     float_str0 = '%'+'.'+'%d'%d+'f'

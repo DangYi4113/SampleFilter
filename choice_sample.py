@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import random
 import statsmodels.api as sm
-#下面这两行是为了不显示warnings
+
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -15,14 +15,11 @@ global issuccess_all
 issuccess_all = False
 
 def sig_t(X,y,model_reg,method_reg,p_alpha_list,t_above_list,t_below_list,alpha=0.05):
-    #这个函数是每次都需要改的
+    
     MyReg = model_dict[model_reg]
     regt = MyReg(y,X)
     result = regt.fit(method=method_reg, disp=False).summary2().tables[1]
-    #if regt.isfit==False:
-        #return False
-        #尚不明确，采用了statsmodels之后，怎么判断回归是否成功
-        
+    
     for t in p_alpha_list:
         if result.iloc[t]['P>|%s|'%B_dict[model_reg]]>=alpha:
             return False
@@ -33,10 +30,6 @@ def sig_t(X,y,model_reg,method_reg,p_alpha_list,t_above_list,t_below_list,alpha=
         if result.iloc[t][B_dict[model_reg]]>=0:
             return False
     return True
-
-#1. choice_step1，这个函数用来在整个样本中找到较小的一个子样本
-#2. choice_step2，在choice_step1结果的基础上，找到尽可能大的一个子样本
-#3. choice_step3，重复进行choice_step1和choice_step2，找到尽可能大的子样本
 
 #运行choice_step2前必须运行choice_step1。
 #运行choice_step3前不一定先运行choice_step1和choice_step2，因为choice_step3里会从头开始计算
@@ -89,10 +82,7 @@ def choice_step2(X,y,index1,model_reg,method_reg,p_alpha_list,t_above_list,t_bel
     return index1
 
 def choice_step3(X,y,model_reg,method_reg,p_alpha_list,t_above_list,t_below_list,alpha=0.05,lr=0.2,rr=0.6,iteration=10000,N=5):
-    #iteration是每次寻找初始样本时，最大重复次数
-    #lr是初始样本的样本量占总样本比例的下限
-    #rr是初始样本的样本量占总样本比例的上限
-    #N是重复整个过程的次数
+
     index_final = []
     index_len = 0
     j = 0
