@@ -18,18 +18,21 @@ def sig_t(X,y,model_reg,method_reg,p_alpha_list,t_above_list,t_below_list,alpha=
     
     MyReg = model_dict[model_reg]
     regt = MyReg(y,X)
-    result = regt.fit(method=method_reg, disp=False).summary2().tables[1]
-    
-    for t in p_alpha_list:
-        if result.iloc[t]['P>|%s|'%B_dict[model_reg]]>=alpha:
-            return False
-    for t in t_above_list:
-        if result.iloc[t][B_dict[model_reg]]<=0:
-            return False
-    for t in t_below_list:
-        if result.iloc[t][B_dict[model_reg]]>=0:
-            return False
-    return True
+    try:
+        result = regt.fit(method=method_reg, disp=False).summary2().tables[1]
+    except:
+        return False
+    else:
+        for t in p_alpha_list:
+            if result.iloc[t]['P>|%s|'%B_dict[model_reg]]>=alpha:
+                return False
+        for t in t_above_list:
+            if result.iloc[t][B_dict[model_reg]]<=0:
+                return False
+        for t in t_below_list:
+            if result.iloc[t][B_dict[model_reg]]>=0:
+                return False
+        return True
 
 #运行choice_step2前必须运行choice_step1。
 #运行choice_step3前不一定先运行choice_step1和choice_step2，因为choice_step3里会从头开始计算

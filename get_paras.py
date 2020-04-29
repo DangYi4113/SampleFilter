@@ -1,7 +1,7 @@
 import pandas as pd
 import sys
 
-writer_info = '更多问题，可联系作者，邮箱 2592612552@qq.com'
+writer_info = '更多问题，可联系作者，邮箱 dangyi4113@foxmail.com'
 
 def get_paras(filename='参数表.xlsx'):
     part1 = pd.read_excel(filename,sheet_name='必须填充的')

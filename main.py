@@ -15,7 +15,7 @@ alpha,const_bool,lr,rr,iteration,N,d = get_paras()
 
 print('\n开始读取数据文件：')
 
-writer_info = '更多问题，可联系作者，邮箱 2592612552@qq.com'
+writer_info = '更多问题，可联系作者，邮箱 dangyi4113@foxmail.com'
 
 try:
     data = pd.read_excel(data_filename, sheet_name = data_sheetname, header = data_extraline_num)
